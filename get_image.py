@@ -48,7 +48,7 @@ def download():
             saveUrl(fail_file, data[1])
             print('fail ' + data[1])
         data = getTarget()
-        time.sleep(0.5)
+        time.sleep(0.1)
 
 download()
 
