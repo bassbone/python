@@ -19,6 +19,6 @@ for dir in getdirs(from_dir):
     for file in glob.glob(from_dir + dir + "/*.jpg"):
         try:
             print file.rsplit("/")[4]
-            Image.open(file).resize((96,96)).save(to_dir + dir + "/" + file.rsplit('/')[4])
+            Image.open(file).resize((256,256)).save(to_dir + dir + "/" + file.rsplit('/')[4])
         except:
             continue
