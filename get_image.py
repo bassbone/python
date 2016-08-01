@@ -3,10 +3,11 @@
 import requests, os, time
 
 headers = {'User-Agent' : 'Mozilla/5.0'}
-result_dir = '/tmp/download/'
-list_file = '/tmp/list.txt'
-done_file = '/tmp/done.txt'
-fail_file = '/tmp/fail.txt'
+root_dir = '/tmp/'
+result_dir = root_dir + 'download/'
+list_file = root_dir + 'list.txt'
+done_file = root_dir + 'done.txt'
+fail_file = root_dir + 'fail.txt'
 
 def fetchImage(data):
     label = data[0]
