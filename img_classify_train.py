@@ -38,7 +38,7 @@ def mini_batch_learn(x_train, t_train, mini_batch_size = 10):
     sum_accuracy = 0
 
     train_count = len(x_train)
-    train_count = 100
+    #train_count = 100
     perm = numpy.random.permutation(train_count)
 
     for i in range(0, train_count, mini_batch_size):
@@ -75,7 +75,7 @@ def mini_batch_test(x_test, t_test, mini_batch_size = 10):
     sum_accuracy = 0
 
     test_count = len(x_test)
-    test_count = 20
+    #test_count = 20
     
     for i in range(0, test_count, mini_batch_size):
         print i
@@ -128,14 +128,14 @@ test_accuracy = []
 x_train, t_train = getTrainData()
 x_test, t_test = getTestData()
 
-max_epoch = 1
+max_epoch = 5
 
 for epoch in range(1, max_epoch + 1):
-    e, a = mini_batch_learn(x_train, t_train, 20)
+    e, a = mini_batch_learn(x_train, t_train)
     train_loss.append(e)
     train_accuracy.append(a)
 
-    e, a = mini_batch_test(x_test, t_test, 20)
+    e, a = mini_batch_test(x_test, t_test)
     test_loss.append(e)
     test_accuracy.append(a)
 
@@ -144,6 +144,7 @@ print train_accuracy
 print test_loss
 print test_accuracy
 
-pickle.dump(model, open('/tmp/model', 'wb'), -1)
-
+f = open('/tmp/model', 'wb')
+pickle.dump(model, f, -1)
+f.close()
 
