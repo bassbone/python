@@ -38,7 +38,7 @@ def mini_batch_learn(x_train, t_train, mini_batch_size = 10):
     sum_accuracy = 0
 
     train_count = len(x_train)
-    #train_count = 100
+    #train_count = 100 # DEBUG
     perm = numpy.random.permutation(train_count)
 
     for i in range(0, train_count, mini_batch_size):
@@ -75,7 +75,7 @@ def mini_batch_test(x_test, t_test, mini_batch_size = 10):
     sum_accuracy = 0
 
     test_count = len(x_test)
-    #test_count = 20
+    #test_count = 20 # DEBUG
     
     for i in range(0, test_count, mini_batch_size):
         print i
@@ -100,21 +100,10 @@ def mini_batch_test(x_test, t_test, mini_batch_size = 10):
     test_accuracy = sum_accuracy / test_count
     return test_loss, test_accuracy
 
-def getTrainData():
+def getData(filename):
     x = []
     t = []
-    train_text = '/tmp/train.txt'
-    for line in open(train_text):
-        pair = line.strip().split()
-        x.append(numpy.asarray(Image.open(pair[0])))
-        t.append(pair[1])
-    return x, t
-
-def getTestData():
-    x = []
-    t = []
-    test_text = '/tmp/test.txt'
-    for line in open(test_text):
+    for line in open('/tmp/' + filename):
         pair = line.strip().split()
         x.append(numpy.asarray(Image.open(pair[0])))
         t.append(pair[1])
@@ -125,8 +114,8 @@ train_accuracy = []
 test_loss = []
 test_accuracy = []
 
-x_train, t_train = getTrainData()
-x_test, t_test = getTestData()
+x_train, t_train = getData('train.txt')
+x_test, t_test = getData('test.txt')
 
 max_epoch = 5
 
