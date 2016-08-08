@@ -7,9 +7,13 @@ import numpy
 import Image
 import pickle
 
+w1 = 256 * 256 * 3
+w2 = 64
+w3 = 2
+
 model = chainer.FunctionSet(
-    fc1 = F.Linear(256 * 256 * 3, 64),
-    fc2 = F.Linear(64, 2),
+    fc1 = F.Linear(w1, w2),
+    fc2 = F.Linear(w2, w3),
 )
 
 def forward(x):
