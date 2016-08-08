@@ -7,9 +7,11 @@ import numpy
 import Image
 import pickle
 
+# load model
 f = open('/tmp/model')
 model = pickle.load(f)
 f.close()
+
 
 def forward(x):
     u2 = model.fc1(x)
