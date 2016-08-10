@@ -9,38 +9,31 @@ import pickle
 
 class ImgClassify:
 
-    def __init__(self, w1, w2, w3):
-        self._w1 = w1
-        self._w2 = w2
-        self._w3 = w3
-
-        self._model = chainer.FunctionSet(
-            fc1 = F.Linear(self._w1, self._w2),
-            fc2 = F.Linear(self._w2, self._w3),
-        )
+    def __init__(self, model):
+        self._model = model
 
         self._optimizer = chainer.optimizers.Adam()
-        self._optimizer.setup(self._model.collect_parameters())
+        self._optimizer.setup(self._model)
 
-    def forward(x):
+    def forward(self, x):
         u2 = self._model.fc1(x)
         z2 = F.relu(u2)
         u3 = self._model.fc2(z2)
         return u3
 
-    def output(x):
+    def output(self, x):
         h = self.forward(x)
         return F.softmax(h)
 
-    def predict(x):
+    def predict(self, x):
         y = self.output(x)
         d = numpy.argmax(y.data)
         return d
 
-    def loss(h, t):
+    def loss(self, h, t):
         return F.softmax_cross_entropy(h, t)
 
-    def mini_batch_learn(x_train, t_train, mini_batch_size = 10):
+    def mini_batch_learn(self, x_train, t_train, mini_batch_size = 10):
         sum_loss = 0
         sum_accuracy = 0
 
@@ -77,7 +70,7 @@ class ImgClassify:
         train_accuracy = sum_accuracy / train_count
         return train_loss, train_accuracy
 
-    def mini_batch_test(x_test, t_test, mini_batch_size = 10):
+    def mini_batch_test(self, x_test, t_test, mini_batch_size = 10):
         sum_loss = 0
         sum_accuracy = 0
 
@@ -107,7 +100,7 @@ class ImgClassify:
         test_accuracy = sum_accuracy / test_count
         return test_loss, test_accuracy
 
-    def getData(filename):
+    def getData(self, filename):
         x = []
         t = []
         for line in open('/tmp/' + filename):
@@ -116,7 +109,7 @@ class ImgClassify:
             t.append(pair[1])
         return x, t
 
-    def saveModel():
+    def saveModel(self):
         f = open('/tmp/model', 'wb')
         pickle.dump(model, f, -1)
         f.close()
