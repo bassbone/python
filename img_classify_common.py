@@ -38,11 +38,10 @@ class ImgClassify:
         sum_accuracy = 0
 
         train_count = len(x_train)
-        #train_count = 100 # DEBUG
+        train_count = 100 # DEBUG
         perm = numpy.random.permutation(train_count)
 
         for i in range(0, train_count, mini_batch_size):
-            print i
             x_batch = []
             t_batch = []
             for j in perm[i:i + mini_batch_size]:
@@ -55,8 +54,8 @@ class ImgClassify:
 
             x = chainer.Variable(x_batch)
             t = chainer.Variable(t_batch)
-            h = self._forward(x)
-            e = self._loss(h, t)
+            h = self.forward(x)
+            e = self.loss(h, t)
             a = F.accuracy(h, t)
 
             e.backward()
@@ -75,22 +74,21 @@ class ImgClassify:
         sum_accuracy = 0
 
         test_count = len(x_test)
-        #test_count = 20 # DEBUG
+        test_count = 20 # DEBUG
     
         for i in range(0, test_count, mini_batch_size):
-            print i
             x_batch = []
             t_batch = []
             for j in range(i, i + mini_batch_size):
-                x_batch.append(x_train[j])
-                t_batch.append(t_train[j])
+                x_batch.append(x_test[j])
+                t_batch.append(t_test[j])
             x_batch = numpy.array(x_batch, dtype=numpy.float32)
             t_batch = numpy.array(t_batch, dtype=numpy.int32)
 
             x = chainer.Variable(x_batch)
             t = chainer.Variable(t_batch)
-            h = self._forward(x)
-            e = self._loss(h, t)
+            h = self.forward(x)
+            e = self.loss(h, t)
             a = F.accuracy(h, t)
         
             sum_loss += float(e.data) * len(t_batch)
@@ -111,6 +109,6 @@ class ImgClassify:
 
     def saveModel(self):
         f = open('/tmp/model', 'wb')
-        pickle.dump(model, f, -1)
+        pickle.dump(self._model, f, -1)
         f.close()
 
