@@ -55,7 +55,7 @@ def loss(h, t):
     return F.softmax_cross_entropy(h, t)
 
 optimizer = chainer.optimizers.Adam()
-optimizer.setup(model.collect_parameters())
+optimizer.setup(model)
 
 x_tmp = []
 x_tmp.append(numpy.asarray(tmp_image))
