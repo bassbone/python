@@ -38,10 +38,11 @@ class ImgClassify:
         sum_accuracy = 0
 
         train_count = len(x_train)
-        train_count = 100 # DEBUG
+        #train_count = 100 # DEBUG
         perm = numpy.random.permutation(train_count)
 
         for i in range(0, train_count, mini_batch_size):
+            print i
             x_batch = []
             t_batch = []
             for j in perm[i:i + mini_batch_size]:
@@ -74,9 +75,10 @@ class ImgClassify:
         sum_accuracy = 0
 
         test_count = len(x_test)
-        test_count = 20 # DEBUG
+        #test_count = 20 # DEBUG
     
         for i in range(0, test_count, mini_batch_size):
+            print i
             x_batch = []
             t_batch = []
             for j in range(i, i + mini_batch_size):

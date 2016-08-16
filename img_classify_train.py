@@ -27,7 +27,7 @@ test_accuracy = []
 x_train, t_train = instance.getData('train.txt')
 x_test, t_test = instance.getData('test.txt')
 
-max_epoch = 2
+max_epoch = 5
 
 for epoch in range(1, max_epoch + 1):
     e, a = instance.mini_batch_learn(x_train, t_train)

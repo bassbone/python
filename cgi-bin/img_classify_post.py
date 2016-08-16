@@ -63,5 +63,5 @@ x_data = numpy.array(x_tmp, dtype=numpy.float32)
 x = chainer.Variable(x_data)
 digit = predict(x)
 
-print 'あなたのアップロードした画像は' + ['Dress', 'HandBag'][digit] + 'の可能性が高いです。'
+print 'あなたのアップロードした画像は' + ['ワンピース', 'ハンドバッグ'][digit] + 'の可能性が高いです。'
 
